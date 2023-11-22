@@ -51,7 +51,7 @@ const SignUp = () => {
       <div className='flex'>
         <p>Have an Account ? </p>
         <Link to="/sign-in">
-          <span className='text-blue-700 hover:text-blue-500'>Sign In</span>
+          <span className='text-blue-700 hover:text-blue-500 pl-1'>Sign In</span>
         </Link>
       </div>
       {Error && <p className='text-red-500'>{Error}</p>}
