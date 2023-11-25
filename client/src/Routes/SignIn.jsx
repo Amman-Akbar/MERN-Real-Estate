@@ -1,12 +1,14 @@
 import { useState } from 'react'
-import { Link , useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { loginFailure, loginStart, loginSuccess } from '../redux/slice/user.slice';
 
 
 const SignIn = () => {
   const [formData, setformData] = useState({});
-  const [Loading, setLoading] = useState(false)
-  const [Error, setError] = useState(null)
-  const navigate=useNavigate();
+  const { loading, error } = useSelector(state => state.user)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleChange = e => {
     setformData({
       ...formData,
@@ -17,7 +19,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      setLoading(true);
+      dispatch(loginStart())
       const res = await fetch('/api/auth/signin', {
         method: "POST",
         headers: {
@@ -27,16 +29,13 @@ const SignIn = () => {
       });
       const data = await res.json();
       if (data.success === false) {
-        setLoading(false);
-        setError(data.message);
+        dispatch(loginFailure(data.message));
         return;
       }
-      setLoading(false);
-      setError(null)
+      dispatch(loginSuccess(data));
       navigate("/")
     } catch (error) {
-      setLoading(false);
-      setError(error.message)
+      dispatch(loginFailure(error.message));
     }
   }
   return (
@@ -45,7 +44,7 @@ const SignIn = () => {
       <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
         <input id="Email" type="email" placeholder='Email' className='p-3 border rounded-lg' onChange={handleChange} />
         <input id="Password" type="password" placeholder='Password' className='p-3 border rounded-lg' onChange={handleChange} />
-        <button disabled={Loading} className='bg-slate-700 uppercase text-white m-5 py-4 text-xl rounded-full hover:opacity-95'>{Loading ? 'Loading ...' : 'Sign In'}</button>
+        <button disabled={loading} className='bg-slate-700 uppercase text-white m-5 py-4 text-xl rounded-full hover:opacity-95'>{loading ? 'Loading ...' : 'Sign In'}</button>
       </form>
       <div className='flex'>
         <p>Don't have an account ?</p>
@@ -53,7 +52,8 @@ const SignIn = () => {
           <span className='text-blue-700 hover:text-blue-500 pl-1'>Sign Up</span>
         </Link>
       </div>
-      {Error && <p className='text-red-500'>{Error}</p>}
+      {error && <p className='text-red-500'>{error}</p>}
+      
     </div>
   )
 }
