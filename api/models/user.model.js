@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
     },
     Avatar:{
       type:String,
-      default:"https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
+      default:"https://banner2.cleanpng.com/20180528/ccc/kisspng-computer-icons-user-avatar-woman-avatar-5b0c5b2f6ecaa1.2446433615275364314538.jpg"
     },
   },
   { timestamps: true }
