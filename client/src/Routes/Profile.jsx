@@ -34,7 +34,7 @@ const Profile = () => {
       'state_changed',
       (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setFilePerc((prevFilePerc) => Math.round(progress)); // Use functional update
+        setFilePerc(Math.round(progress)); // Use functional update
       },
       (error) => {
         setUploadFileError(error);
