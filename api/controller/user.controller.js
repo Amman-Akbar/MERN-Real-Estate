@@ -8,7 +8,7 @@ export const test= (req,res)=>{
 
 export const update=async (req,res,next)=>{
     if(req.user.id!==req.params.id){
-        next(errorHandler(404,"User not found"))
+        next(errorHandler(404,"You can only update your own account"))
     }
     try {
         if(req.body.Password){

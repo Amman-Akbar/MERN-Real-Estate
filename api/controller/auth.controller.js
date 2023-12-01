@@ -49,7 +49,7 @@ export const google = async (req, res, next) => {
     else{
       const generatedpass=Math.random().toString(36)-slice(8);
       const hashedpass = bcryptjs.hashSync(generatedpass, 10);
-      const newUser = new User({Username: name.split(" ").join("").tolowerCase()+Math.random().toString(36)-slice(4),Email: email,Avatar: photo, Password: hashedpass });
+      const newUser = new User({Username: name.split(" ").join("").toLowerCase()+Math.random().toString(36)-slice(4),Email: email,Avatar: photo, Password: hashedpass });
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY);
       const { Password: pass, ...rest } = newUser._doc;
