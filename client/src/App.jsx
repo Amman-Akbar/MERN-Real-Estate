@@ -7,6 +7,7 @@ import SignUp from './Routes/SignUp'
 import Profile from './Routes/Profile'
 import Header from './Components/Header.component'
 import ProtectedRoute from './Components/ProtectedRoute'
+import CreateListing from './Routes/CreateListing'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="sign-in" element={<SignIn />} />
         <Route element={<ProtectedRoute />}>
           <Route path="profile" element={<Profile />} />
+          <Route path="create-listing" element={<CreateListing />} />
         </Route>
         <Route path="sign-up" element={<SignUp />} />
       </Routes></BrowserRouter>

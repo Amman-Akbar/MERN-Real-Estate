@@ -4,6 +4,9 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/
 import { app } from '../utils/firebase';
 import {updatestart, updatefailure, updatesuccess, deleteUserStart, deleteUserSuccess, deleteUserFailure, signOutUserStart, signOutUserSuccess, signOutUserFailure} from '../redux/slice/user.slice'
 import { useDispatch } from 'react-redux';
+import {Link} from 'react-router-dom'
+
+
 const Profile = () => {
   const { currentUser,loading, error } = useSelector(state => state.user)
   const fileRef = useRef(null)
@@ -131,7 +134,10 @@ const Profile = () => {
         <input onChange={handleChange} className='p-3 border rounded-lg' type="text" name="Username" id="Username" placeholder='Username' defaultValue={currentUser.Username} />
         <input onChange={handleChange} className='p-3 border rounded-lg' type="email" name="Email" id="Email" placeholder='Email' defaultValue={currentUser.Email} />
         <input onChange={handleChange} className='p-3 border rounded-lg' type="password" name="Password" id="Password" placeholder='Password' />
-        <button disabled={loading} className='bg-slate-700 uppercase text-white m-5 py-4 text-xl rounded-full hover:opacity-80'>{loading ? 'Loading ...' : 'Update Profile'}</button>
+        <button disabled={loading} className='bg-slate-700 uppercase text-white py-4 text-xl rounded-full hover:opacity-80'>{loading ? 'Loading ...' : 'Update Profile'}</button>
+        <Link to="/create-listing">
+          <button className='bg-blue-700 uppercase text-white py-4 text-xl rounded-full hover:opacity-80 w-full'>Create Listing</button>
+        </Link>
       </form>
       <div className='flex justify-between mt-5'>
         <span onClick={handleDeleteUser} className='text-red-500 cursor-pointer'>Delete Account</span>
